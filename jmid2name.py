@@ -1,3 +1,4 @@
+import os
 import jmcomic
 from hoshino import Service
 from hoshino.typing import CQEvent
@@ -14,7 +15,8 @@ sv = Service(
 )
 if type(NICKNAME) == str:
     NICKNAME = [NICKNAME]
-client = jmcomic.create_option('config.yml').new_jm_client()
+path = os.path.join(os.path.dirname(__file__), 'config.yml')
+client = jmcomic.create_option(path).new_jm_client()
 print("初始化jm2name")
 
 
@@ -31,7 +33,7 @@ def create_all_messages_data(msg, ev: CQEvent):
         "data": {
             "name": str(NICKNAME[0]),
             "user_id": str(ev.self_id),
-            "content": "以上为查询结果，若只显示这句话则是被QQ拦截了。"
+            "content": "这里是查询结果，若只显示这一句话则是被QQ拦截了。"
         }
     }]
 
@@ -43,6 +45,11 @@ async def I_dont_know_how_to_type_japanese(bot, ev: CQEvent):
     user_message = str(ev.message)
     target_numbers = user_message[2:]
     page = client.search_site(search_query=str(target_numbers))
-    album: JmAlbumDetail = page.single_album
-    send_messages_list = create_all_messages_data(album.name, ev)
-    await bot.send_group_forward_msg(group_id=ev["group_id"], messages=send_messages_list)
+    try:
+        album: JmAlbumDetail = page.single_album
+        send_messages_list = create_all_messages_data(album.name, ev)
+        await bot.send_group_forward_msg(group_id=ev["group_id"], messages=send_messages_list)
+    except Exception as e:
+        print(e)
+        send_messages_list = create_all_messages_data("未能查询到对应id，可能id不存在，或是需要登录才能浏览的隐藏本。", ev)
+        await bot.send_group_forward_msg(group_id=ev["group_id"], messages=send_messages_list)

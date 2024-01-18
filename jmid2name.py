@@ -10,7 +10,7 @@ sv = Service(
     visible=True,  # 可见性
     enable_on_default=True,  # 默认启用
     bundle="娱乐",  # 分组归类
-    help_="发送【JM123456】触发，JM加数字id即可",  # 帮助说明
+    help_="发送【JM123456】触发，JM或jm加数字id即可",  # 帮助说明
 
 )
 if type(NICKNAME) == str:

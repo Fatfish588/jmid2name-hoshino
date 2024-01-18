@@ -32,7 +32,7 @@ git clone https://github.com/Fatfish588/jmid2name-hoshino.git
 pip install jmcomic -i https://pypi.org/project --upgrade
 ```
 3.编写配置文件
-在jmid2name-hoshino目录中有一个config.yml,在此可以编辑代理，仓库中已经默认打开了127.0.0.1:7890，有需要的可以自己修改。
+在jmid2name-hoshino目录中有一个config.yml,在此可以编辑代理，仓库中已经默认打开了127.0.0.1:7890，有需要的可以自己修改。如果发生文件未找到错误请参考常见问题。
 ![image](https://github.com/Fatfish588/jmid2name-hoshino/assets/59791439/c650ffc8-b916-449b-a266-acad1ec38cc0)
 
 
@@ -66,6 +66,12 @@ python testDomain.py
 - A：因为在JM有些本子是必须登录才能看的，本插件目前没有登录功能。
 - Q：为什么bot半天不回话？
 - A：因为与JM链接不稳定，运行testDomain.py检查当前网络能链接上多少域名。
+- Q：明明配置文件写好了但是开启hoshino的报错说找不到config.yml怎么回事？
+- A：在不同的系统上文件目录的读取是不一样的，所以如果开启hoshino的报错说找不到config.yml的话，那就手动把config.yml的绝对路径复制粘贴到jmid2name.py和testDomain.py中对应的path参数位置，如下图。
+![image](https://github.com/Fatfish588/jmid2name-hoshino/assets/59791439/3e3dcf69-aaa5-45f6-a96a-68933e2ca7a3)
+![image](https://github.com/Fatfish588/jmid2name-hoshino/assets/59791439/c48ab7bd-f2f4-44ac-9aba-2f1b49acd011)
+
+
 - Q：都有api了为啥不做到bot看本那种程度啊？
 - A：疯掉啦这么玩bot能活过三天吗。
 # 碎碎念

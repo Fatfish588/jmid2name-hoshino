@@ -10,7 +10,7 @@ sv = Service(
     visible=True,  # 可见性
     enable_on_default=True,  # 默认启用
     bundle="娱乐",  # 分组归类
-    help_="发送【JM123456】触发，JM字母加数字id即可",  # 帮助说明
+    help_="发送【JM123456】触发，JM加数字id即可",  # 帮助说明
 
 )
 if type(NICKNAME) == str:
@@ -20,23 +20,27 @@ client = jmcomic.create_option(path).new_jm_client()
 print("初始化jm2name")
 
 
-def create_all_messages_data(msg, ev: CQEvent):
-    messages_data_list = [{
-        "type": "node",
-        "data": {
-            "name": str(NICKNAME[0]),
-            "user_id": str(ev.self_id),
-            "content": str(msg)
+def create_all_messages_data(msg_list, ev: CQEvent):
+    messages_data_list = []
+    for msg in msg_list:
+        data = {
+            "type": "node",
+            "data": {
+                "name": str(NICKNAME[0]),
+                "user_id": str(ev.self_id),
+                "content": str(msg)
+            }
         }
-    }, {
-        "type": "node",
-        "data": {
-            "name": str(NICKNAME[0]),
-            "user_id": str(ev.self_id),
-            "content": "这里是查询结果，若只显示这一句话则是被QQ拦截了。"
-        }
-    }]
+        messages_data_list.append(data)
 
+    messages_data_list.append({
+        "type": "node",
+        "data": {
+            "name": str(NICKNAME[0]),
+            "user_id": str(ev.self_id),
+            "content": "这是查询结果，应该包含本子名、标签、作者三条，若缺少某条或只显示这条说明则是被QQ拦截了。"
+        }
+    })
     return messages_data_list
 
 
@@ -47,9 +51,12 @@ async def I_dont_know_how_to_type_japanese(bot, ev: CQEvent):
     page = client.search_site(search_query=str(target_numbers))
     try:
         album: JmAlbumDetail = page.single_album
-        send_messages_list = create_all_messages_data(album.name, ev)
+        book_name = album.name
+        book_tag = f"标签：{album.tags}"
+        book_author = f"作者：{album.author}"
+        send_messages_list = create_all_messages_data([book_name, book_author, book_tag], ev)
         await bot.send_group_forward_msg(group_id=ev["group_id"], messages=send_messages_list)
     except Exception as e:
         print(e)
-        send_messages_list = create_all_messages_data("未能查询到对应id，可能id不存在，或是需要登录才能浏览的隐藏本。", ev)
+        send_messages_list = create_all_messages_data(["未能查询到对应id，可能id不存在，或是需要登录才能浏览的隐藏本。"], ev)
         await bot.send_group_forward_msg(group_id=ev["group_id"], messages=send_messages_list)

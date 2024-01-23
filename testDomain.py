@@ -3,9 +3,8 @@
 """
 import jmcomic
 from jmcomic import *
-
-option = jmcomic.create_option('config.yml')
-
+path = os.path.join(os.path.dirname(__file__), 'config.yml')
+option = jmcomic.create_option(path)
 meta_data = {
     # 'proxies': ProxyBuilder.clash_proxy()
 }

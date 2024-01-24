@@ -58,5 +58,5 @@ async def I_dont_know_how_to_type_japanese(bot, ev: CQEvent):
         await bot.send_group_forward_msg(group_id=ev["group_id"], messages=send_messages_list)
     except Exception as e:
         print(e)
-        send_messages_list = create_all_messages_data(["未能查询到对应id，可能id不存在，或是需要登录才能浏览的隐藏本。"], ev)
+        send_messages_list = create_all_messages_data(["未能查询到对应id，可能id不存在，或是需要登录才能浏览的隐藏本。或是包含除了jmid之外的内容，例如艾特了bot导致出现了id之外的内容"], ev)
         await bot.send_group_forward_msg(group_id=ev["group_id"], messages=send_messages_list)

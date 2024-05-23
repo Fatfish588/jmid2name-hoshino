@@ -23,14 +23,17 @@ API功能来自[hect0x7](https://github.com/hect0x7)的[JMComic-Crawler-Python](
 在 HoshinoBot\hoshino\modules 目录下使用以下命令拉取本项目：    
 
 ```bash
-git clone https://github.com/Fatfish588/jmid2name-hoshino.git
+git clone https://github.com/Fatfish588/jmid2name-hoshino.git   
 ```
 
 2.安装依赖  
 
 ```bash
-pip install jmcomic -i https://pypi.org/project --upgrade
-```
+pip install jmcomic -i https://pypi.org/project -U  
+```  
+```bash
+pip install commonX -U  
+```  
 3.编写配置文件  
 在jmid2name-hoshino目录中有一个config.yml,在此可以编辑代理，仓库中已经默认打开了127.0.0.1:7890，有需要的可以自己修改。如果发生文件未找到错误请参考常见问题。
 ![image](https://github.com/Fatfish588/jmid2name-hoshino/assets/59791439/c650ffc8-b916-449b-a266-acad1ec38cc0)

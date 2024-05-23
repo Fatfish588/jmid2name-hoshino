@@ -11,13 +11,13 @@ client:
   impl: html
 
   # domain: 域名配置，默认是 []，表示运行时自动获取域名。
-  # 可配置特定域名，如下：
+  # 可配置特定域名，如下(这些域名不一定还能用了，除非确定域名可用否则不要固定)：
+  #  - jm-comic.org 
+  #  - jm-comic2.cc
+  #  - 18comic.vip 
+  #  - 18comic.org
   # 程序会先用第一个域名，如果第一个域名重试n次失败，则换下一个域名重试，以此类推。
-  domain:
-    - jm-comic.org
-    - jm-comic2.cc
-    - 18comic.vip
-    - 18comic.org
+  domain: []
 
   # retry_times: 请求失败重试次数，默认为5
   retry_times: 5
